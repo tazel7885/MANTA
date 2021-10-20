@@ -68,7 +68,7 @@ add_library(manta_dxl_lib src/Parser.cpp src/trajectory.cpp)
 add_dependencies(manta_dxl_lib ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(manta_dxl_lib ${catkin_LIBRARIES} dynamixel_sdk ${YAML_CPP_LIBRARIES})
 
-add_executable(manta_dxl_node src/test_node.cpp)
+add_executable(manta_dxl_node src/manta_dxl_node.cpp)
 add_dependencies(manta_dxl_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(manta_dxl_node ${catkin_LIBRARIES} manta_dxl_lib )
 

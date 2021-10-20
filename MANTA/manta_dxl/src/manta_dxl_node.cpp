@@ -4,10 +4,10 @@
   
 #include "diagnostic_msgs/KeyValue.h"
 
-DXLMotor dxlmotors("/home/ubuntu/catkin_ws/src/MANTA_RPI/manta_dxl/config/manta.motor");
+DXLMotor dxlmotors("/home/ubuntu/catkin_ws/src/MANTA/manta_dxl/config/manta.motor");
 DXLMotion dxlmotion;
 
-void chatterCallback(const diagnostic_msgs::KeyValue::ConstPtr& msg)
+void decisionCallback(const diagnostic_msgs::KeyValue::ConstPtr& msg)
 {
   ROS_INFO("[%s] : %s", msg->key.c_str(), msg->value.c_str());
   std::string group=msg->key.c_str();
@@ -19,15 +19,16 @@ void chatterCallback(const diagnostic_msgs::KeyValue::ConstPtr& msg)
 int main(int argc, char **argv)
 {
 
-  ros::init(argc, argv, "test_node");
+  ros::init(argc, argv, "manta_dxl_node");
   ros::NodeHandle nh;
 
   ros::Rate loop_rate(125);
 
   dxlmotors.InitializeDXL();
-  
+
+  dxlmotion.init(nh);  
   dxlmotion.SetupDXL(dxlmotors.dxls_);
-  dxlmotion.SetupMotion("/home/ubuntu/catkin_ws/src/MANTA_RPI/manta_dxl/config/manta.motion",dxlmotors.dxl_locations);
+  dxlmotion.SetupMotion("/home/ubuntu/catkin_ws/src/MANTA/manta_dxl/config/manta.motion",dxlmotors.dxl_locations);
 
   dxlmotors.SetTorque(true);
   dxlmotors.BulkReadMotor();
@@ -35,7 +36,7 @@ int main(int argc, char **argv)
   // UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position);
 
 
-  ros::Subscriber sub = nh.subscribe("chatter", 1000, chatterCallback);
+  ros::Subscriber sub = nh.subscribe("/manta/motion_start", 1000, decisionCallback);
 
   while (ros::ok())
   {

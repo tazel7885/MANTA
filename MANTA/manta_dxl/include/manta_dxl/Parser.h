@@ -6,6 +6,9 @@
 #include <vector>
 #include <utility>
 #include <set>
+#include <ros/ros.h>
+#include <ros/package.h>
+#include "diagnostic_msgs/KeyValue.h"
 #include "manta_dxl/trajectory.h"
 
 #include "dynamixel_sdk/dynamixel_sdk.h"
@@ -92,6 +95,7 @@ public:
   ~DXLMotion();
   std::string convertIntToString(int n);
 
+  void init(ros::NodeHandle &root_nh);
   void SetupMotion(std::string motion_file_path,std::set<std::string> dxl_location);
 
   motion_data readYamlMotion(std::string session,std::string motion_yaml_file);
@@ -116,6 +120,9 @@ private:
   std::map<uint8_t,int> motor2currindex;
   std::map<uint8_t, bool> motor2finmotion;
   std::map<uint8_t,Trajectory> motor2trajectory;
+
+  ros::Publisher motionDone_pub;
+  diagnostic_msgs::KeyValue motionDone;
 
 
 };

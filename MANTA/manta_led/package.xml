@@ -2,7 +2,7 @@
 <package format="1">
   <name>edie_led</name>
   <version>0.0.0</version>
-  <description>The edie_led package</description>
+  <description>The manta_led package</description>
   
   <maintainer email="pi@todo.todo">pi</maintainer>
 

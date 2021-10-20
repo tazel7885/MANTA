@@ -235,6 +235,11 @@ DXLMotion::~DXLMotion()
 {
 }
 
+void DXLMotion::init(ros::NodeHandle &root_nh)
+{
+  motionDone_pub = root_nh.advertise<diagnostic_msgs::KeyValue>("/manta/motion_done", 10);
+}
+
 void DXLMotion::SetupMotion(std::string motion_file_path, std::set<std::string> dxl_location)
 {
   dxl_sessions = dxl_location;
@@ -335,16 +340,18 @@ void DXLMotion::Changemotion(std::string group, int motion,std::map<int, int32_t
 }
 
 
-void DXLMotion::UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position)
+void DXLMotion::UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position, ros::NodeHandle &root_nh)
 {
   for(auto &it : dxl_sessions)
   {
     if(CheckMotionFin(it.c_str()))
     {
+      motionDone->key = it;
+      motionDone->value = group2currmotion[it.c_str()];
+      motionDone_pub.publish(motionDone);
       group2currmotion[it.c_str()] = 0;
       Changemotion(it.c_str(),group2currmotion[it.c_str()],current_position);
     }
-
   }
   for (auto &it : dxl_ids)
   {
