@@ -1,0 +1,40 @@
+
+  motor_1: 
+  { 
+                # time point 
+    waypoint_0: {time : 3, point: 500},
+    waypoint_1: {time : 6, point: -500},
+    waypoint_2: {time : 9, point: 1300}
+  }
+  motor_9:  # 300
+  { 
+                # time point 
+    waypoint_0: {time : 1.5, point: -300},
+    waypoint_1: {time : 4.5, point: -300}, 
+    waypoint_2: {time : 7.5, point: 300}, 
+    waypoint_3: {time : 10.5, point: 300},  
+    waypoint_4: {time : 12, point: 0}
+  }
+  motor_10: # 6000
+  { 
+                # time point 
+    waypoint_0: {time : 0.5, point: 0},    # 2
+    waypoint_1: {time : 5.5, point: 6000}, # 9
+    waypoint_2: {time : 6.5, point: 6000}, # 11
+    waypoint_3: {time : 11.5, point: 0},    # 18
+    waypoint_4: {time : 12, point: 0}    # 18
+  }
+
+  motor_11:  # 6000
+  { 
+                # time point 
+    waypoint_0: {time : 12, point: 0}
+  }
+  motor_12: # 300
+  { 
+                # time point 
+    waypoint_0: {time : 12, point: 0}
+  }
+
+  # 300
+  # 6000

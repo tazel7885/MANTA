@@ -1,0 +1,9 @@
+[ port info ]
+# PORT NAME  | BAUDRATE
+/dev/ttyUSB0 | 115200 
+
+[ device info ]
+# ID   | MODEL | DEV LOC | DEV TYPE | MIN     | MAX
+  1    | MX-28 | tale    | pitch    | -28672  | 28672
+  7    | ML-430 | wing    | left_pitch   | -1048575  | 1048575
+  8    | ML-430 | wing    | left_roll    | -1048575  | 1048575

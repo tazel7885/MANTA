@@ -1,0 +1,10 @@
+motor_1: 
+  waypoint_0: 
+    time : 3
+    point: 500
+  waypoint_1:
+    time : 6
+    point: -500
+  waypoint_2: 
+    time : 9
+    point: 1300
