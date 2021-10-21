@@ -5,7 +5,7 @@
 
 #include <pigpiod_if2.h>
 
-#include "../include/edie_led/Led.hpp"
+#include "../include/manta_led/Led.hpp"
 
 
 namespace LED

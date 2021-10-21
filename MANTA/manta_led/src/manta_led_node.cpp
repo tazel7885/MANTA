@@ -4,7 +4,7 @@
 #include <string>
 #include <std_msgs/Int8.h>
 
-#include "../include/edie_led/Led.hpp"
+#include "../include/manta_led/Led.hpp"
 
 /*
 *
