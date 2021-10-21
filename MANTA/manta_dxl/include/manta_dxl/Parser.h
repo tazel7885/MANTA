@@ -103,7 +103,7 @@ public:
 
   void SetupDXL(std::map<int, device>  dxl_info);
 
-  void UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position);
+  void UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position, ros::NodeHandle &root_nh);
   void ResetMotorCurrent(std::map<int, int32_t> current_position);
   void Changemotion(std::string group, int motion,std::map<int, int32_t> current_position);
 
