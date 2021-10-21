@@ -283,7 +283,7 @@ void DXLMotion::SetupMotion(std::string motion_file_path, std::set<std::string> 
 
           int motion_id = std::atoi(tokens[0].c_str());
           std::string motion_name = tokens[1].c_str();
-          std::string location = "/home/ubuntu/catkin_ws/src/MANTA_RPI/manta_dxl/config/";
+          std::string location = "/home/ubuntu/catkin_ws/src/MANTA/manta_dxl/config/";
           group_motions[session].motions[motion_id] = readYamlMotion(session, location + session + "/" + motion_name + ".yaml");
         }
       }
