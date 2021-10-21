@@ -346,8 +346,8 @@ void DXLMotion::UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map
   {
     if(CheckMotionFin(it.c_str()))
     {
-      motionDone->key = it;
-      motionDone->value = group2currmotion[it.c_str()];
+      motionDone.key = it;
+      motionDone.value = group2currmotion[it.c_str()];
       motionDone_pub.publish(motionDone);
       group2currmotion[it.c_str()] = 0;
       Changemotion(it.c_str(),group2currmotion[it.c_str()],current_position);
