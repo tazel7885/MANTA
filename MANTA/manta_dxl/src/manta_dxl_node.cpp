@@ -41,7 +41,7 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
     dxlmotors.BulkReadMotor();
-    dxlmotion.UpdateMotorTarget(dxlmotors.goal_position,dxlmotors.current_position);
+    dxlmotion.UpdateMotorTarget(dxlmotors.goal_position,dxlmotors.current_position, nh);
 
     dxlmotors.BulkWriteMotor();
  
