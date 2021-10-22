@@ -6,18 +6,16 @@
 #include <diagnostic_msgs/KeyValue.h>
 //#include "../include/manta_main/manta_main_node.hpp"
 
-
 diagnostic_msgs::KeyValue motion;
-ros::Publisher Motion_pub = nh.advertise<diagnostic_msgs::KeyValue>('/manta/motion_start', 1000);
+int check = 0;
 // Motion Done Callback
-void MotionCallback(const diagnostic_msgs::KeyValue &msg)
+void MotionCallback(const diagnostic_msgs::KeyValue::ConstPtr &msg)
 {
   //ROS_INFO("call: %d",msg->data);
   motion.key = msg->key;
-  motion.value = 1;
-  Motion_pub.publish(motion);
+  motion.value = '1';
+  check = 1;
 }
-
 
 int main(int argc, char **argv)
 {
@@ -25,9 +23,15 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
   ros::Rate loop_rate(10);
   ros::Subscriber Motion_sub = nh.subscribe("/manta/motion_done", 10, MotionCallback);
+  ros::Publisher Motion_pub = nh.advertise<diagnostic_msgs::KeyValue>("/manta/motion_start", 1000);
 
   while(ros::ok())
   {
+    if(check == 1)
+    {
+      Motion_pub.publish(motion);
+      check = 0;
+    }
     ros::spinOnce();
     loop_rate.sleep();
   }
