@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ros/ros.h>
 #include <ros/package.h>
-#include "manta_main/manta.h"
+#include "manta_main/Manta.h"
 #include <string>
 #include <std_msgs/Int8.h>
 #include <std_msgs/Int16.h>
@@ -18,9 +18,9 @@ void MotionCallback(const diagnostic_msgs::KeyValue::ConstPtr &msg)
 }
 
 // Pose Callback
-void PoseCallback(const std_mgs::Int16::ConstPtr &msg)
+void PoseCallback(const std_msgs::Int16::ConstPtr &msg)
 {
-  std_mgs::Int16 led;
+  std_msgs::Int16 led;
   led = *msg;
   manta.PubLed(led);
 }

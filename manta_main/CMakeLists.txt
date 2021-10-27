@@ -31,22 +31,25 @@ endif(NOT ${YAML_CPP_VERSION} VERSION_LESS "0.5")
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES manta_main
+  LIBRARIES manta_main_lib
   CATKIN_DEPENDS roscpp std_msgs roslib sensor_msgs geometry_msgs
   DEPENDS system_lib
 )
 
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 link_directories(
   ${catkin_LIBRARIES}
+  ${YAML_CPP_INCLUDE_DIRS}
 )
 
+add_library(manta_main_lib src/Manta.cpp)
+add_dependencies(manta_main_lib ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(manta_main_lib ${catkin_LIBRARIES} ${YAML_CPP_LIBRARIES})
+
 add_executable(${PROJECT_NAME}_node src/manta_main_node.cpp)
-
 add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES} manta_main_lib)

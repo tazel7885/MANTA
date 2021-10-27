@@ -2,7 +2,7 @@
 #include <ros/ros.h>
 #include <ros/package.h>
 #include <string>
-#include <std_msgs/Int8.h>
+#include <std_msgs/Int16.h>
 
 #include "../include/manta_led/Led.hpp"
 
