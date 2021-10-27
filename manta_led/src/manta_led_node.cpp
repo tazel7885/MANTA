@@ -25,7 +25,7 @@ using namespace LED;
 int id_msg;
 
 // LED Input Callback
-void LEDCallback(const std_msgs::Int8::ConstPtr &msg)
+void LEDCallback(const std_msgs::Int16::ConstPtr &msg)
 {
   //ROS_INFO("call: %d",msg->data);
   id_msg = msg->data;
