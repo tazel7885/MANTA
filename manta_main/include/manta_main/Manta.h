@@ -1,8 +1,14 @@
-#include <ros/ros.h>
-#include <diagnostic_msgs/KeyValue.h>  //Motor
-#include <std_msgs/Int16.h>             //Led
 #include <string>
 #include <vector>
+#include <stdio.h>
+
+// ros header file
+#include <ros/ros.h>
+#include <ros/package.h>
+
+// ros message header file
+#include <std_msgs/Int16.h> // led 
+#include <diagnostic_msgs/KeyValue.h> // motor
 
 class Manta
 {
@@ -19,4 +25,6 @@ private:
 	ros::Publisher motion_pub;
 	ros::Publisher led_pub;
 	std::vector<std::pair<int, std::string>> pose_data;
+	std::vector<std::pair<std::string, int>> led_data;
+	int pose_num;
 };

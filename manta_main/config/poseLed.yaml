@@ -1,0 +1,9 @@
+pose_1:
+  name: shake
+  led: 1
+pose_2:
+  name: handup
+  led: 2
+pose_3:
+  name: up
+  led: 3

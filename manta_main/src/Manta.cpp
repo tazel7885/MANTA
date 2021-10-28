@@ -1,9 +1,9 @@
 #include "manta_main/Manta.h"
-
 #include <yaml-cpp/yaml.h>
 
 Manta::Manta()
 {
+	pose_num = 3;
 }
 
 Manta::~Manta()
@@ -27,6 +27,26 @@ void Manta::readPoseYaml(std::string pose_file_path)
 	catch(const std::exception &e)
 	{
 		ROS_ERROR("Fail to load yaml file");
+	}
+	return;
+}
+
+void Manta::readLedYaml(std::string led_file_path)
+{
+	YAML::Node yaml_doc;
+	try
+	{
+		yaml_doc = YAML::LoadFile(pose_file_path.c_str());
+	}
+	catch(const std::exception &e)
+	{
+		ROS_ERROR("Fail to load yaml file");
+	}
+	for(int i = 0; i < pose_num; i++){
+		std::string cmd_key = "";
+		cmd_key = "pose_" + converIntToString(i+1);
+		YAML::Node Led_data_doc = yaml_doc[cmd_key];
+		
 	}
 	return;
 }
