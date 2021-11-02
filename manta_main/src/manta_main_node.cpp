@@ -1,5 +1,5 @@
 #include "manta_main/Manta.h"
-
+#include <ros/package.h>
 
 Manta manta;
 
@@ -27,6 +27,9 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(10);
 
   manta.init(nh);
+
+  std::string led_path = ros::package::getPath("manta_main")+"/config/poseLed.yaml";
+  manta.readLedYaml(led_path);
   //manta.readPoseYaml('path');
 
   ros::Subscriber Motion_sub = nh.subscribe("/manta/motion_done", 10, MotionCallback);

@@ -28,6 +28,12 @@ void Manta::readPoseYaml(std::string pose_file_path)
 	{
 		ROS_ERROR("Fail to load yaml file");
 	}
+	for(int i = 0; i < pose_num; i++){
+		std::string cmd_key = "";
+		cmd_key = "index_" + converIntToString(i);
+		YAML::Node Pose_data_doc = yaml_doc[cmd_key];
+		pose_data.push_back(std::make_pair(Pose_data_doc["name"].as<std::string>(), i))
+	}
 	return;
 }
 
@@ -46,7 +52,7 @@ void Manta::readLedYaml(std::string led_file_path)
 		std::string cmd_key = "";
 		cmd_key = "pose_" + converIntToString(i+1);
 		YAML::Node Led_data_doc = yaml_doc[cmd_key];
-		
+		led_data.push_back(std::make_pair(Led_data_doc["pose"].as<std::string>(), Led_data_doc["led"].as<int>()))
 	}
 	return;
 }

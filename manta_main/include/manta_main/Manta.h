@@ -17,6 +17,7 @@ public:
 	~Manta();
 
 	void readPoseYaml(std::string pose_file_path);
+	void readLedYaml(std::string led_file_path)
 	void init(ros::NodeHandle &root_nh);
 	void PubMotion(diagnostic_msgs::KeyValue motion);
 	void PubLed(std_msgs::Int16 led);
@@ -24,7 +25,7 @@ public:
 private:
 	ros::Publisher motion_pub;
 	ros::Publisher led_pub;
-	std::vector<std::pair<int, std::string>> pose_data;
+	std::vector<std::pair<std::string, int>> pose_data;
 	std::vector<std::pair<std::string, int>> led_data;
 	int pose_num;
 };

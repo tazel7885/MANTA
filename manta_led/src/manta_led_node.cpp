@@ -6,13 +6,6 @@
 
 #include "../include/manta_led/Led.hpp"
 
-/*
-*
-* made by Min InJoon
-*
-* refectoring by Yoo DongHa
-*
-*/
 
 int pin_nums[3] = {21, 20, 16}; //B, R, G
 int pwm_initial = 0;
