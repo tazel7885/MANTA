@@ -29,10 +29,11 @@ int main(int argc, char **argv)
   manta.init(nh);
 
   std::string led_path = ros::package::getPath("manta_main")+"/config/poseLed.yaml";
+  std::string pose_path = ros::package::getPath("manta_main")+"/config/pose.yaml";
   manta.readLedYaml(led_path);
-  //manta.readPoseYaml('path');
+  manta.readPoseYaml(pose_path);
 
-  ros::Subscriber Motion_sub = nh.subscribe("/manta/motion_done", 10, MotionCallback);
+  ros::Subscriber Motion_sub = nh.subscribe("/manta/motion/done", 10, MotionCallback);
   ros::Subscriber Pose_sub = nh.subscribe("/manta/vision/pose", 10, PoseCallback);
   
   while(ros::ok())

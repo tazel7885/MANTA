@@ -237,7 +237,7 @@ DXLMotion::~DXLMotion()
 
 void DXLMotion::init(ros::NodeHandle &root_nh)
 {
-  motionDone_pub = root_nh.advertise<diagnostic_msgs::KeyValue>("/manta/motion_done", 10);
+  motionDone_pub = root_nh.advertise<diagnostic_msgs::KeyValue>("/manta/motion/done", 10);
 }
 
 void DXLMotion::SetupMotion(std::string motion_file_path, std::set<std::string> dxl_location)

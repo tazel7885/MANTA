@@ -36,7 +36,7 @@ int main(int argc, char **argv)
   // UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position);
 
 
-  ros::Subscriber sub = nh.subscribe("/manta/motion_start", 1000, decisionCallback);
+  ros::Subscriber sub = nh.subscribe("/manta/motion/start", 1000, decisionCallback);
 
   while (ros::ok())
   {

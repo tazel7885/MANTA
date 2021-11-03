@@ -17,10 +17,11 @@ public:
 	~Manta();
 
 	void readPoseYaml(std::string pose_file_path);
-	void readLedYaml(std::string led_file_path)
+	void readLedYaml(std::string led_file_path);
 	void init(ros::NodeHandle &root_nh);
 	void PubMotion(diagnostic_msgs::KeyValue motion);
 	void PubLed(std_msgs::Int16 led);
+	std::string convertIntToString(int n);
 
 private:
 	ros::Publisher motion_pub;
