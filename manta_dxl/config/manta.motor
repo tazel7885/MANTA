@@ -4,5 +4,7 @@
 
 [ device info ]
 # ID   | MODEL | DEV LOC | DEV TYPE | MIN     | MAX
+  5    | ML-430 | wing    | right_pitch  | -1048575  | 1048575
+  6    | ML-430 | wing    | right_roll   | -1048575  | 1048575
   7    | ML-430 | wing    | left_pitch   | -1048575  | 1048575
   8    | ML-430 | wing    | left_roll    | -1048575  | 1048575

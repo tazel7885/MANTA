@@ -1,3 +1,11 @@
+motor_5:
+  waypoint_0:
+    time : 5
+    point: 0
+motor_6:
+  waypoint_0:
+    time : 5
+    point: 0
 motor_7: 
   waypoint_0: 
     time : 5
