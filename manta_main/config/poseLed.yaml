@@ -1,9 +1,24 @@
-pose_1:
-  name: shake
-  led: 1
-pose_2:
-  name: handup
-  led: 2
-pose_3:
-  name: up
-  led: 3
+0:
+  name : leftDown
+  led : 2
+1:
+  name : leftUp
+  led : 3
+2:
+  name : rightDown
+  led : 4
+3:
+  name : rightUp
+  led : 5
+4:
+  name : twoDown
+  led : 6
+5:
+  name : twoUp
+  led : 7
+6:
+  name : heart
+  led : 8
+7:
+  name : normal
+  led : 9

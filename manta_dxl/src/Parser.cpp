@@ -136,7 +136,7 @@ int DXLMotor::InitializeDXL()
 
   for (auto &it : dxls_)
   {
-    dxl_comm_result = pkt_handler->write1ByteTxRx(port_handler, it.first, ADD_OPERATION_MODE, 4, &dxl_error);
+    dxl_comm_result = pkt_handler->write1ByteTxRx(port_handler, it.first, ADD_OPERATION_MODE, 3, &dxl_error);
     if (dxl_comm_result != COMM_SUCCESS)
     {
 

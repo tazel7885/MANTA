@@ -3,7 +3,7 @@
 
 Manta::Manta()
 {
-	pose_num = 3;
+	pose_num = 8;
 }
 
 Manta::~Manta()
@@ -30,7 +30,7 @@ void Manta::readPoseYaml(std::string pose_file_path)
 	}
 	for(int i = 0; i < pose_num; i++){
 		std::string cmd_key = "";
-		cmd_key = "index_" + convertIntToString(i+1);
+		cmd_key = convertIntToString(i);
 		YAML::Node Pose_data_doc = yaml_doc[cmd_key];
 		pose_data.push_back(std::make_pair(Pose_data_doc["name"].as<std::string>(), i+1));
 	}
@@ -50,7 +50,7 @@ void Manta::readLedYaml(std::string led_file_path)
 	}
 	for(int i = 0; i < pose_num; i++){
 		std::string cmd_key = "";
-		cmd_key = "pose_" + convertIntToString(i+1);
+		cmd_key = convertIntToString(i);
 		YAML::Node Led_data_doc = yaml_doc[cmd_key];
 		led_data.push_back(std::make_pair(Led_data_doc["name"].as<std::string>(), Led_data_doc["led"].as<int>()));
 	}
