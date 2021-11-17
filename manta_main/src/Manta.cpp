@@ -32,7 +32,7 @@ void Manta::readPoseYaml(std::string pose_file_path)
 		std::string cmd_key = "";
 		cmd_key = convertIntToString(i);
 		YAML::Node Pose_data_doc = yaml_doc[cmd_key];
-		pose_data.push_back(std::make_pair(Pose_data_doc["name"].as<std::string>(), i+1));
+		pose_data.push_back(std::make_pair(Pose_data_doc["name"].as<std::string>(), i));
 	}
 	return;
 }
@@ -67,7 +67,7 @@ void Manta::PubLed(std_msgs::Int16 led)
 {
 	for(int i = 0; i < pose_num; i++)
 	{
-		if(pose_data[led.data-1].first == led_data[i].first)
+		if(pose_data[led.data].first == led_data[i].first)
 		{
 			std_msgs::Int16 data;
 			data.data = led_data[i].second;

@@ -29,7 +29,7 @@ int main(int argc, char **argv)
   manta.init(nh);
 
   std::string led_path = ros::package::getPath("manta_main")+"/config/poseLed.yaml";
-  std::string pose_path = ros::package::getPath("manta_main")+"/config/pose.yaml";
+  std::string pose_path = ros::package::getPath("manta_main")+"/config/pose.yml";
   manta.readLedYaml(led_path);
   manta.readPoseYaml(pose_path);
 
