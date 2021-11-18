@@ -342,6 +342,7 @@ void DXLMotion::Changemotion(std::string group, int motion,std::map<int, int32_t
 
 void DXLMotion::UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position, ros::NodeHandle &root_nh)
 {
+
   for(auto &it : dxl_sessions)
   {
     if(CheckMotionFin(it.c_str()))
@@ -353,6 +354,7 @@ void DXLMotion::UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map
       Changemotion(it.c_str(),group2currmotion[it.c_str()],current_position);
     }
   }
+
   for (auto &it : dxl_ids)
   {
     if (motor2trajectory[it.first].ready())

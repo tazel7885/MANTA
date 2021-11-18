@@ -1,8 +1,8 @@
 [ port info ]
 # PORT NAME  | BAUDRATE
-/dev/ttyUSB0 | 115200 
+/dev/ttyUSB0 | 115200
 
 [ device info ]
 # ID   | MODEL | DEV LOC | DEV TYPE | MIN     | MAX
-  1    | XM430 | left_wing    | left_pitch   | 0  | 4095
-  2    | XM430 | right_wing    | left_roll    | 0  | 4095
+  1    | XM430 | wing    | left_pitch   | 220  | 4000
+  2    | XM430 | wing    | left_roll    | 220  | 4000
