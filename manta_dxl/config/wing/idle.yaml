@@ -8,7 +8,7 @@ motor_1:
 motor_2: 
   waypoint_0: 
     time : 5
-    point: 4095
+    point: 4094
   waypoint_1: 
     time : 5
     point: 1
