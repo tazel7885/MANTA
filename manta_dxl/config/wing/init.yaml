@@ -1,8 +1,8 @@
-motor_7: 
+motor_1: 
   waypoint_0: 
-    time : 5
-    point: 0
-motor_8: 
+    time : 10
+    point: 1
+motor_2: 
   waypoint_0: 
-    time : 5
-    point: 0
+    time : 10
+    point: 1

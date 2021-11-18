@@ -1,26 +1,14 @@
-motor_7: 
+motor_1: 
   waypoint_0: 
-    time : 4
-    point: 7000
+    time : 5
+    point: 4094
   waypoint_1: 
-    time : 8
-    point: -5000
-  waypoint_2: 
-    time : 4
-    point: 0
-motor_8: 
+    time : 5
+    point: 1
+motor_2: 
   waypoint_0: 
-    time : 2
-    point: -500
+    time : 5
+    point: 4095
   waypoint_1: 
-    time : 4
-    point: -500
-  waypoint_2:
-    time : 4
-    point: 500
-  waypoint_3: 
-    time : 4
-    point: 500
-  waypoint_4:
-    time : 2
-    point: 0
+    time : 5
+    point: 1

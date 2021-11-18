@@ -4,5 +4,5 @@
 
 [ device info ]
 # ID   | MODEL | DEV LOC | DEV TYPE | MIN     | MAX
-  7    | XM430 | wing    | left_pitch   | 0  | 4096
-  8    | XM430 | wing    | left_roll    | 0  | 4096
+  1    | XM430 | left_wing    | left_pitch   | 0  | 4095
+  2    | XM430 | right_wing    | left_roll    | 0  | 4095
