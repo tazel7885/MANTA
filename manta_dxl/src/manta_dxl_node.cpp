@@ -24,14 +24,17 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(125);
 
-  dxlmotors.InitializeDXL();
-
-  dxlmotion.init(nh);  
+  if(dxlmotors.InitializeDXL() ==-1)
+    return -1;
+  dxlmotion.init(nh);
   dxlmotion.SetupDXL(dxlmotors.dxls_);
+ 
   dxlmotion.SetupMotion("/home/ubuntu/catkin_ws/src/MANTA/manta_dxl/config/manta.motion",dxlmotors.dxl_locations);
 
   dxlmotors.SetTorque(true);
+  
   dxlmotors.BulkReadMotor();
+
   dxlmotion.ResetMotorCurrent(dxlmotors.current_position);
   // UpdateMotorTarget(std::map<int, int32_t> &goal_position,std::map<int, int32_t> current_position);
 

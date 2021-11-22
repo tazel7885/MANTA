@@ -1,8 +1,8 @@
 motor_1: 
   waypoint_0: 
     time : 10
-    point: 1
+    point: 228
 motor_2: 
   waypoint_0: 
     time : 10
-    point: 1
+    point: 228

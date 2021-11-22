@@ -1,14 +1,14 @@
 motor_1: 
   waypoint_0: 
     time : 5
-    point: 4094
+    point: 3880
   waypoint_1: 
     time : 5
-    point: 1
+    point: 228
 motor_2: 
   waypoint_0: 
     time : 5
-    point: 4094
+    point: 3880
   waypoint_1: 
     time : 5
-    point: 1
+    point: 228

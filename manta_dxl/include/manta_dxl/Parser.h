@@ -18,6 +18,8 @@
 #define SESSION_DEVICE_INFO   "device info"
 
 #define ADD_OPERATION_MODE 11
+#define ADD_MAX_POS 48
+#define ADD_MIN_POS 48
 #define ADD_TORQUE 64
 #define ADD_GOAL_POSITION 116
 #define ADD_PRES_POSITION 132
