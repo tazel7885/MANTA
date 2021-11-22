@@ -31,11 +31,17 @@ namespace LED
       void SetID(int id_input);
       void ReadLedColor(std::string led_color_file, int pwm_range);
       void SetLedColor();
+      void SetTargetColor(flaot cycle, int target_id, int current_id);
       void StopLed();
 
     private:
       std::vector<Led> Leds_;
       std::vector<std::vector<int> > color_vector_;
+      std::vector<float> target_color_vector_B;
+      std::vector<float> target_color_vector_R;
+      std::vector<float> target_color_vector_G;
+      bool change_color;
+      int current;
       int id_;
       int rpi_number;
   };

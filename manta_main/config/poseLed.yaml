@@ -1,24 +1,24 @@
 0:
   name : leftDown
-  led : 2
+  led : 11
 1:
   name : leftUp
-  led : 3
+  led : 7
 2:
   name : rightDown
-  led : 4
+  led : 11
 3:
   name : rightUp
   led : 5
 4:
   name : twoDown
-  led : 6
+  led : 3
 5:
   name : twoUp
-  led : 7
+  led : 4
 6:
   name : heart
-  led : 8
+  led : 9
 7:
   name : normal
   led : 1

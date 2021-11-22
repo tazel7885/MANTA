@@ -11,9 +11,13 @@ int pin_nums[3] = {21, 20, 16}; //B, R, G
 int pwm_initial = 0;
 int pwm_range = 1000;
 
+float hz=0.1;
+
 
 using namespace LED;
 
+int size_pin_nums = sizeof(pin_nums)/sizeof(*pin_nums);
+LedManager led_manager(pin_nums, size_pin_nums, pwm_initial ,pwm_range);
 
 int id_msg;
 
@@ -21,6 +25,7 @@ int id_msg;
 void LEDCallback(const std_msgs::Int16::ConstPtr &msg)
 {
   //ROS_INFO("call: %d",msg->data);
+  led_manager.SetTargetColor(hz, id_msg, msg->data);
   id_msg = msg->data;
 }
 
@@ -29,12 +34,9 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "manta_led_node");
   ros::NodeHandle nh;
-  ros::Rate loop_rate(2);
+  ros::Rate loop_rate(1.0/hz);
 
   ros::Subscriber LED_sub = nh.subscribe("/manta/led", 10, LEDCallback);
-
-  int size_pin_nums = sizeof(pin_nums)/sizeof(*pin_nums);
-  LedManager led_manager(pin_nums, size_pin_nums, pwm_initial ,pwm_range);
 
   //std::string id_file = "/home/ubuntu/catkin_ws/src/EDIE_Parasol/EDIE_ModeChanger/setting/EDIE_ID.txt";
   std::string id_file = ros::package::getPath("manta_led")+"/led_data/ID.txt";

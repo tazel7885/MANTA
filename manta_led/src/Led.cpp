@@ -15,7 +15,8 @@ namespace LED
   {
     pi_num_ = pi_num;
     pin_num_ = pin_num;
-
+    change_color = false;
+    current = 0;
     set_mode(pi_num_, pin_num_, PI_OUTPUT);
 
 
@@ -127,9 +128,43 @@ namespace LED
     //ROS_INFO("%d : %d %d %d",id_,color_vector_[id_-1][0],color_vector_[id_-1][1],color_vector_[id_-1][2]);
     for(int i=0; i<Leds_.size(); i++)
     {
-  
-      Leds_[i].SetPwmDutyCycle(int(color_vector_[id_-1][i]));
+      if(change_color){
+        int target_color_vector[3] = {target_color_vector_B[current], target_color_vector_R[current], target_color_vector_G[current]);
+        Leds_[i].SetPwmDutyCycle(target_color_vector[current][i]);
+        current++;
+        if(current == target_color_vector_B.size()){
+          current = 0;
+          change_color = false;
+        }
+      }
+      else{
+        Leds_[i].SetPwmDutyCycle(int(color_vector_[id_-1][i]));
+      }
     }
+  }
+
+  void LedManager::SetTargetColor(flaot cycle, int target_id, int current_id)
+  {
+    for(int i = 0; i < 3; i++)
+      float error[i] = (int(color_vector_[current_id-1][i]) - int(color_vector_[target_id-1][i])) / (2/cycle);
+
+    target_color_vector_B.clear();
+    target_color_vector_R.clear();
+    target_color_vector_G.clear();
+
+    for(int i = 0; i < 2 / cycle; i++){
+      if(target_color_vector_B.size() == 0){
+        target_color_vector_B.pushback(color_vector_[current_id-1][0] + err[0]);
+        target_color_vector_R.pushback(color_vector_[current_id-1][1] + err[1]);
+        target_color_vector_G.pushback(color_vector_[current_id-1][2] + err[2]);
+      }
+      else{
+        target_color_vector_B.pushback(target_color_vector_B.back() + err[0]);
+        target_color_vector_R.pushback(target_color_vector_R.back() + err[1]);
+        target_color_vector_G.pushback(target_color_vector_G.back() + err[2]);
+      }
+    }
+    change_color = true;
   }
   
   void LedManager::StopLed()
