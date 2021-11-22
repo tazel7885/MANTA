@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <node name="manta_main_node" pkg="manta_main" type="manta_main_node" />
-  <node name="manta_led_node" pkg="manta_led" type="manta_led_node" />
-  <node name="manta_dxl_node" pkg="manta_dxl" type="manta_dxl_node" />
+  <node name="manta_main_node" pkg="manta_main" type="manta_main_node" required="true"/>
+  <node name="manta_led_node" pkg="manta_led" type="manta_led_node" required="true"/>
+  <node name="manta_dxl_node" pkg="manta_dxl" type="manta_dxl_node" required="true"/>
 </launch>

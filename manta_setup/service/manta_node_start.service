@@ -1,1 +1,14 @@
-/home/ubuntu/.config/systemd/user/manta_node_start.service
+[Unit]
+Description=Node Run Service
+Requires=manta_roscore_start.service
+After=manta_roscore_start.service
+StartLimitInterval=500
+StartLimitBurst=10
+
+[Service]
+ExecStart=/home/ubuntu/catkin_ws/src/MANTA/manta_setup/shellscript/manta_node_start.sh
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target

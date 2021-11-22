@@ -13,4 +13,4 @@ source /home/ubuntu/catkin_ws/devel/setup.bash
 export ROS_MASTER_URI=http://localhost:11311
 export ROS_HOSTNAME=localhost
 rosclean purge -y 
-roslaunch --wait xmanta_main manta_main.launch
+roslaunch --wait manta_main manta_main.launch

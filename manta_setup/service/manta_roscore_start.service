@@ -1,1 +1,12 @@
-/home/ubuntu/.config/systemd/user/manta_roscore_start.service
+[Unit]
+Description=Manta Roscore Start Service
+StartLimitInterval=200
+StartLimitBurst=10
+
+[Service]
+ExecStart=/home/ubuntu/catkin_ws/src/MANTA/manta_setup/shellscript/manta_roscore_start.sh
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target

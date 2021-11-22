@@ -24,7 +24,8 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(125);
 
-  dxlmotors.InitializeDXL();
+  if(dxlmotors.InitializeDXL() ==-1)
+    return -1;
   dxlmotion.init(nh);
   dxlmotion.SetupDXL(dxlmotors.dxls_);
  
