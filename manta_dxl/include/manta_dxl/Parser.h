@@ -23,7 +23,7 @@
 #define ADD_TORQUE 64
 #define ADD_GOAL_POSITION 116
 #define ADD_PRES_POSITION 132
-
+#define ADD_HARDWARE_ERROR 70
 #define LEN_TORQUE 1
 #define LEN_GOAL_POSITION 4
 #define LEN_PRES_POSITION 4
@@ -51,6 +51,7 @@ public:
   void BulkReadMotor();
   void BulkWriteMotor();
   int SetTorque(bool onoff);
+  bool checkMotionLive();
 
   std::map<int, device> dxls_;   
   std::map<int, int32_t> current_position;   

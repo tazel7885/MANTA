@@ -228,6 +228,20 @@ void DXLMotor::BulkWriteMotor()
   port_to_sync_write_->txPacket();
 }
 
+bool DXLMotor::checkMotionLive()
+{
+  for(auto &it : dxls_)
+  {
+    uint8_t dxl_error = 0;
+    int dxl_comm_result = pkt_handler->read1ByteTxRx(port_handler, it.first, ADD_HARDWARE_ERROR, &dxl_error);
+    ROS_INFO("error: %d", dxl_comm_result);
+    if(dxl_comm_result){
+      return true;
+    } 
+    //ROS_INFO("dxl_error: %d", dxl_error);
+  }
+  return false;
+}
 DXLMotion::DXLMotion()
 {
 }
@@ -466,6 +480,7 @@ motion_data DXLMotion::readYamlMotion(std::string session, std::string motion_ya
   }
   return temp_motion_data;
 }
+
 
 // int Parser::countFiles()
 // {

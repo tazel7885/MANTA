@@ -43,6 +43,7 @@ int main(int argc, char **argv)
 
   while (ros::ok())
   {
+    if(dxlmotors.checkMotionLive()) return 1;
     dxlmotors.BulkReadMotor();
     dxlmotion.UpdateMotorTarget(dxlmotors.goal_position,dxlmotors.current_position, nh);
 

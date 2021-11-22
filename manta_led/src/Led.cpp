@@ -15,8 +15,7 @@ namespace LED
   {
     pi_num_ = pi_num;
     pin_num_ = pin_num;
-    change_color = false;
-    current = 0;
+    
     set_mode(pi_num_, pin_num_, PI_OUTPUT);
 
 
@@ -51,6 +50,8 @@ namespace LED
     {
       Leds_.push_back(Led(rpi_number, pin_nums[i], pwm_init, pwm_range));
     }
+    change_color = false;
+    current = 0;
   }
 
   LedManager::~LedManager()
@@ -129,8 +130,8 @@ namespace LED
     for(int i=0; i<Leds_.size(); i++)
     {
       if(change_color){
-        int target_color_vector[3] = {target_color_vector_B[current], target_color_vector_R[current], target_color_vector_G[current]);
-        Leds_[i].SetPwmDutyCycle(target_color_vector[current][i]);
+        float target_color_vector[3] = {target_color_vector_B[current], target_color_vector_R[current], target_color_vector_G[current]};
+        Leds_[i].SetPwmDutyCycle(target_color_vector[i]);
         current++;
         if(current == target_color_vector_B.size()){
           current = 0;
@@ -143,10 +144,11 @@ namespace LED
     }
   }
 
-  void LedManager::SetTargetColor(flaot cycle, int target_id, int current_id)
+  void LedManager::SetTargetColor(float cycle, int target_id, int current_id)
   {
+    float error[3] = {0,};
     for(int i = 0; i < 3; i++)
-      float error[i] = (int(color_vector_[current_id-1][i]) - int(color_vector_[target_id-1][i])) / (2/cycle);
+      error[i] = (int(color_vector_[current_id-1][i]) - int(color_vector_[target_id-1][i])) / (2/cycle);
 
     target_color_vector_B.clear();
     target_color_vector_R.clear();
@@ -154,14 +156,14 @@ namespace LED
 
     for(int i = 0; i < 2 / cycle; i++){
       if(target_color_vector_B.size() == 0){
-        target_color_vector_B.pushback(color_vector_[current_id-1][0] + err[0]);
-        target_color_vector_R.pushback(color_vector_[current_id-1][1] + err[1]);
-        target_color_vector_G.pushback(color_vector_[current_id-1][2] + err[2]);
+        target_color_vector_B.push_back(color_vector_[current_id-1][0] + error[0]);
+        target_color_vector_R.push_back(color_vector_[current_id-1][1] + error[1]);
+        target_color_vector_G.push_back(color_vector_[current_id-1][2] + error[2]);
       }
       else{
-        target_color_vector_B.pushback(target_color_vector_B.back() + err[0]);
-        target_color_vector_R.pushback(target_color_vector_R.back() + err[1]);
-        target_color_vector_G.pushback(target_color_vector_G.back() + err[2]);
+        target_color_vector_B.push_back(target_color_vector_B.back() + error[0]);
+        target_color_vector_R.push_back(target_color_vector_R.back() + error[1]);
+        target_color_vector_G.push_back(target_color_vector_G.back() + error[2]);
       }
     }
     change_color = true;
