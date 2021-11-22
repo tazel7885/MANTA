@@ -47,8 +47,8 @@ namespace LED
       void SetLedColor();
       void SetTargetColor(float cycle, int target_id, int current_id);
       void StopLed();
-      hsv rgb2hsv(rgb rgb_value);
-      rgb hsv2rgb(hsv hsv_value);
+      hsv rgb2hsv(rgb in);
+      rgb hsv2rgb(hsv in);
       
     private:
       std::vector<Led> Leds_;

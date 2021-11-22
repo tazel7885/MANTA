@@ -131,40 +131,39 @@ namespace LED
     {
       if(change_color){
         rgb rgb_ = hsv2rgb(target_color_vector_hsv[current]);
-        float target_color_vector[3] = {rgb_.b, rgb_.g, rgb_.r};
+        float target_color_vector[3] = {rgb_.b * 1000, rgb_.r * 1000, rgb_.g * 1000};
         Leds_[i].SetPwmDutyCycle(target_color_vector[i]);
-        current++;
-        if(current == target_color_vector_B.size()){
-          current = 0;
-          change_color = false;
-        }
       }
+      
       else{
         Leds_[i].SetPwmDutyCycle(int(color_vector_[id_-1][i]));
       }
     }
+    if(current == target_color_vector_hsv.size() - 1){
+      current = 0;
+      change_color = false;
+    }
+    current++;
   }
 
   void LedManager::SetTargetColor(float cycle, int target_id, int current_id)
   {
     rgb target_rgb;
-    target_rgb.b = int(color_vector_[target_id-1][0]);
-    target_rgb.g = int(color_vector_[target_id-1][1]);
-    target_rgb.r = int(color_vector_[target_id-1][2]);
+    target_rgb.b = double(color_vector_[target_id-1][0]) / 1000;
+    target_rgb.r = double(color_vector_[target_id-1][1]) / 1000;
+    target_rgb.g = double(color_vector_[target_id-1][2]) / 1000;
     hsv target_hsv = rgb2hsv(target_rgb);
 
     rgb current_rgb;
-    current_rgb.b = int(color_vector_[target_id-1][0]);
-    current_rgb.g = int(color_vector_[target_id-1][1]);
-    current_rgb.r = int(color_vector_[target_id-1][2]);
-    hsv current_hsv = hsv2rgb(current_rgb);
-
-    float error[3] = {target_hsv.h - current_hsv.h, target_hsv.s - current_hsv.s, target_hsv.v - current_hsv.v};
+    current_rgb.b = double(color_vector_[current_id-1][0]) / 1000;
+    current_rgb.r = double(color_vector_[current_id-1][1]) / 1000;
+    current_rgb.g = double(color_vector_[current_id-1][2]) / 1000;
+    hsv current_hsv = rgb2hsv(current_rgb);
+    double error[3] = {(target_hsv.h - current_hsv.h) / (2./cycle), (target_hsv.s - current_hsv.s) / (2./cycle), (target_hsv.v - current_hsv.v) / (2./cycle)};
 
     target_color_vector_hsv.clear();
     target_color_vector_rgb.clear();
-
-    for(int i = 0; i < 2 / cycle; i++){
+    for(int i = 0; i < 2. / cycle; i++){
       hsv add_error;
       add_error.h = current_hsv.h + error[0] * i;
       add_error.s = current_hsv.s + error[1] * i;
@@ -226,7 +225,7 @@ namespace LED
     return out;
   }
 
-  rgb LedManager::hsv2rgb(hsv hsv_value)
+  rgb LedManager::hsv2rgb(hsv in)
   {
     double hh, p, q, t, ff;
     long i;

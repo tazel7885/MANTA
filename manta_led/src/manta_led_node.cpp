@@ -24,8 +24,8 @@ int id_msg;
 // LED Input Callback
 void LEDCallback(const std_msgs::Int16::ConstPtr &msg)
 {
-  //ROS_INFO("call: %d",msg->data);
-  led_manager.SetTargetColor(hz, id_msg, msg->data);
+  ROS_INFO("call: %d",msg->data);
+  led_manager.SetTargetColor(hz, msg->data, id_msg);
   id_msg = msg->data;
 }
 
