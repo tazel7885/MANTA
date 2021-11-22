@@ -159,11 +159,11 @@ namespace LED
     current_rgb.r = double(color_vector_[current_id-1][1]) / 1000;
     current_rgb.g = double(color_vector_[current_id-1][2]) / 1000;
     hsv current_hsv = rgb2hsv(current_rgb);
-    double error[3] = {(target_hsv.h - current_hsv.h) / (2./cycle), (target_hsv.s - current_hsv.s) / (2./cycle), (target_hsv.v - current_hsv.v) / (2./cycle)};
+    double error[3] = {(target_hsv.h - current_hsv.h) / (0.8/cycle), (target_hsv.s - current_hsv.s) / (0.8/cycle), (target_hsv.v - current_hsv.v) / (0.8/cycle)};
 
     target_color_vector_hsv.clear();
     target_color_vector_rgb.clear();
-    for(int i = 0; i < 2. / cycle; i++){
+    for(int i = 0; i < 0.8 / cycle; i++){
       hsv add_error;
       add_error.h = current_hsv.h + error[0] * i;
       add_error.s = current_hsv.s + error[1] * i;
