@@ -7,7 +7,7 @@
 #include "../include/manta_led/Led.hpp"
 
 
-int pin_nums[3] = {21, 20, 16}; //B, R, G
+int pin_nums[3] = {16, 20, 21}; //B, R, G
 int pwm_initial = 0;
 int pwm_range = 1000;
 int id_msg;
