@@ -49,16 +49,17 @@ namespace LED
       void StopLed();
       hsv rgb2hsv(rgb in);
       rgb hsv2rgb(hsv in);
+      bool IDCheck(int id);
       
     private:
       std::vector<Led> Leds_;
       std::vector<std::vector<int> > color_vector_;
-      std::vector<rgb> target_color_vector_rgb;
       std::vector<hsv> target_color_vector_hsv;
       
       int id_;
       int rpi_number;
       bool change_color;
       int current;
+      double gradation_time;
   };
 };

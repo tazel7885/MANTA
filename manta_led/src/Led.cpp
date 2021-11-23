@@ -52,6 +52,7 @@ namespace LED
     }
     change_color = false;
     current = 0;
+    gradation_time = 0.8;
   }
 
   LedManager::~LedManager()
@@ -159,10 +160,13 @@ namespace LED
     current_rgb.r = double(color_vector_[current_id-1][1]) / 1000;
     current_rgb.g = double(color_vector_[current_id-1][2]) / 1000;
     hsv current_hsv = rgb2hsv(current_rgb);
-    double error[3] = {(target_hsv.h - current_hsv.h) / (0.8/cycle), (target_hsv.s - current_hsv.s) / (0.8/cycle), (target_hsv.v - current_hsv.v) / (0.8/cycle)};
+
+    double gradation_cycle = gradation_time / cycle;
+    double error[3] = {(target_hsv.h - current_hsv.h) / gradation_cycle, 
+                       (target_hsv.s - current_hsv.s) / gradation_cycle, 
+                       (target_hsv.v - current_hsv.v) / gradation_cycle};
 
     target_color_vector_hsv.clear();
-    target_color_vector_rgb.clear();
     for(int i = 0; i < 0.8 / cycle; i++){
       hsv add_error;
       add_error.h = current_hsv.h + error[0] * i;
@@ -283,4 +287,10 @@ namespace LED
     return out;    
   }
 
+  bool LedManager::IDCheck(int id)
+  {
+    if(id > color_vector_.size())
+      return false;
+    return true;
+  }
 };

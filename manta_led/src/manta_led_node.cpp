@@ -10,25 +10,23 @@
 int pin_nums[3] = {21, 20, 16}; //B, R, G
 int pwm_initial = 0;
 int pwm_range = 1000;
+int id_msg;
 
 float hz=0.1;
-
 
 using namespace LED;
 
 int size_pin_nums = sizeof(pin_nums)/sizeof(*pin_nums);
 LedManager led_manager(pin_nums, size_pin_nums, pwm_initial ,pwm_range);
 
-int id_msg;
-
 // LED Input Callback
 void LEDCallback(const std_msgs::Int16::ConstPtr &msg)
 {
   ROS_INFO("call: %d",msg->data);
-  led_manager.SetTargetColor(hz, msg->data, id_msg);
-  id_msg = msg->data;
+  if(led_manager.IDCheck(msg->data))
+    led_manager.SetTargetColor(hz, msg->data, id_msg);
+    id_msg = msg->data;
 }
-
 
 int main(int argc, char **argv)
 {
