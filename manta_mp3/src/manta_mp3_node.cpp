@@ -16,7 +16,6 @@ int main(int argc, char **argv)
 	ros::NodeHandle nh;
 	ros::Rate loop_rate(10);
 
-	manta.init(nh);
 
 	std::string mp3_path = ros::package::getPath("manta_mp3")+"/config/mp3.yaml";
 	mp3.readMp3Yaml(mp3_path);

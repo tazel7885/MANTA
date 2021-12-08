@@ -19,7 +19,7 @@ void Mp3::readMp3Yaml(std::string mp3_path)
 	YAML::Node yaml_doc;
 	try
 	{
-		yaml_doc = YAML::LoadFile(led_file_path.c_str());
+		yaml_doc = YAML::LoadFile(mp3_path.c_str());
 	}
 	catch(const std::exception &e)
 	{
@@ -38,7 +38,7 @@ void Mp3::playMp3(int mp3_num)
 {
 	pid_t g_play_pid = -1;
 	g_play_pid = fork();
-	std::string g_sound_file_path = "/home/ubuntu/catkin_ws/src/mant_mp3_node/file/";
+	std::string g_sound_file_path = "/home/ubuntu/catkin_ws/src/MANTA/manta_mp3/file/";
 	switch(g_play_pid)
 	{
 	case -1:
@@ -52,7 +52,7 @@ void Mp3::playMp3(int mp3_num)
 
 bool Mp3::checkMp3(int mp3_num)
 {
-	if(mp3_num < mp3_count)
+	if(mp3_num < mp3_count_)
 		return true;
 	else
 		return false;
