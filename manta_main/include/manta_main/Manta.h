@@ -1,7 +1,8 @@
 #include <string>
 #include <vector>
 #include <stdio.h>
-
+#include <random>
+ 
 // ros header file
 #include <ros/ros.h>
 #include <ros/package.h>
@@ -21,12 +22,18 @@ public:
 	void init(ros::NodeHandle &root_nh);
 	void PubMotion(diagnostic_msgs::KeyValue motion);
 	void PubLed(std_msgs::Int16 led);
+	void PubMp3();
 	std::string convertIntToString(int n);
 
 private:
 	ros::Publisher motion_pub;
 	ros::Publisher led_pub;
+	ros::Publisher mp3_pub;
 	std::vector<std::pair<std::string, int>> pose_data;
 	std::vector<std::pair<std::string, int>> led_data;
 	int pose_num;
+	int mp3_num;
+	int count;
+	int count_time; // target_sec / control_cycle
+	
 };

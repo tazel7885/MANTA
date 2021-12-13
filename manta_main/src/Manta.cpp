@@ -4,6 +4,9 @@
 Manta::Manta()
 {
 	pose_num = 8;
+	mp3_num = 5;
+	count = 0;
+	count_sec = 600;
 }
 
 Manta::~Manta()
@@ -14,6 +17,7 @@ void Manta::init(ros::NodeHandle &root_nh)
 {
 	motion_pub = root_nh.advertise<diagnostic_msgs::KeyValue>("/manta/motion/start", 1000);
 	led_pub = root_nh.advertise<std_msgs::Int16>("/manta/led", 10);
+	mp3_pub = root_nh.advertise<std_msgs::Int16>("/manta/mp3", 10);
 	return;
 }
 
@@ -76,6 +80,16 @@ void Manta::PubLed(std_msgs::Int16 led)
 		}
 	}
 
+}
+
+void Manta::PubMp3()
+{
+	count++;
+	if(count == count_time)
+	{
+		int ran = rand() % mp3_num;
+		pub_mp3.publish(ran);
+	}
 }
 
 std::string Manta::convertIntToString(int n)
