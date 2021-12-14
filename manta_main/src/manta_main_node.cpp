@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   
   while(ros::ok())
   {
-    manta.pubMp3();
+    manta.PubMp3();
     ros::spinOnce();
     loop_rate.sleep();
   }

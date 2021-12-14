@@ -6,7 +6,7 @@ Manta::Manta()
 	pose_num = 8;
 	mp3_num = 5;
 	count = 0;
-	count_sec = 600;
+	count_time = 100;
 }
 
 Manta::~Manta()
@@ -86,9 +86,13 @@ void Manta::PubMp3()
 {
 	count++;
 	if(count == count_time)
-	{
+	{	
+		std_msgs::Int16 data;
 		int ran = rand() % mp3_num;
-		pub_mp3.publish(ran);
+		if(ran != 0)
+			data.data = ran-1;
+		mp3_pub.publish(data);
+		count = 0;
 	}
 }
 
