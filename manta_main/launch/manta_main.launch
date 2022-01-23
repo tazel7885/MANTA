@@ -3,5 +3,4 @@
   <node name="manta_main_node" pkg="manta_main" type="manta_main_node" required="true"/>
   <node name="manta_led_node" pkg="manta_led" type="manta_led_node" required="true"/>
   <node name="manta_mp3_node" pkg="manta_mp3" type="manta_mp3_node" required="true"/>
-  <node name="manta_dxl_node" pkg="manta_dxl" type="manta_dxl_node" required="true"/>
 </launch>

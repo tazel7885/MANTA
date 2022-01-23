@@ -1,3 +1,4 @@
+
 #include "manta_main/Manta.h"
 #include <yaml-cpp/yaml.h>
 
@@ -6,7 +7,7 @@ Manta::Manta()
 	pose_num = 8;
 	mp3_num = 5;
 	count = 0;
-	count_time = 400;
+	count_time = 250;
 }
 
 Manta::~Manta()
@@ -18,7 +19,6 @@ void Manta::init(ros::NodeHandle &root_nh)
 	motion_pub = root_nh.advertise<diagnostic_msgs::KeyValue>("/manta/motion/start", 1000);
 	led_pub = root_nh.advertise<std_msgs::Int16>("/manta/led", 10);
 	mp3_pub = root_nh.advertise<std_msgs::Int16>("/manta/mp3", 10);
-	check_pub = root_nh.advertise<std_msgs::Int16>("/manta/check", 10);
 	return;
 }
 
@@ -86,7 +86,6 @@ void Manta::PubLed(std_msgs::Int16 led)
 void Manta::PubMp3()
 {
 	count++;
-	count_time = 250;
 	if(count > count_time)
 	{	
 		std_msgs::Int16 data;
@@ -96,13 +95,6 @@ void Manta::PubMp3()
 		mp3_pub.publish(data);
 		count = 0;
 	}
-}
-
-void Manta::PubCheck()
-{
-	std_msgs::Int16 data;
-	data.data = count;
-	check_pub.publish(data);
 }
 
 std::string Manta::convertIntToString(int n)

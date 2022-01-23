@@ -3,6 +3,7 @@
 
 Manta manta;
 
+
 // Motion Done Callback
 void MotionCallback(const diagnostic_msgs::KeyValue::ConstPtr &msg)
 {
@@ -38,6 +39,7 @@ int main(int argc, char **argv)
   
   while(ros::ok())
   {
+    manta.PubCheck();
     manta.PubMp3();
     ros::spinOnce();
     loop_rate.sleep();
