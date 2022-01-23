@@ -6,6 +6,20 @@
 
 #endif
 
+typedef struct
+{
+  float h;
+  float s;
+  float v;
+} hsv;
+
+typedef struct
+{
+  float r;
+  float b;
+  float g;
+} rgb;
+
 namespace LED
 {
   class Led
@@ -31,12 +45,21 @@ namespace LED
       void SetID(int id_input);
       void ReadLedColor(std::string led_color_file, int pwm_range);
       void SetLedColor();
+      void SetTargetColor(float cycle, int target_id, int current_id);
       void StopLed();
-
+      hsv rgb2hsv(rgb in);
+      rgb hsv2rgb(hsv in);
+      bool IDCheck(int id);
+      
     private:
       std::vector<Led> Leds_;
       std::vector<std::vector<int> > color_vector_;
+      std::vector<hsv> target_color_vector_hsv;
+      
       int id_;
       int rpi_number;
+      bool change_color;
+      int current;
+      double gradation_time;
   };
 };

@@ -15,7 +15,7 @@ namespace LED
   {
     pi_num_ = pi_num;
     pin_num_ = pin_num;
-
+    
     set_mode(pi_num_, pin_num_, PI_OUTPUT);
 
 
@@ -50,6 +50,9 @@ namespace LED
     {
       Leds_.push_back(Led(rpi_number, pin_nums[i], pwm_init, pwm_range));
     }
+    change_color = false;
+    current = 0;
+    gradation_time = 0.8;
   }
 
   LedManager::~LedManager()
@@ -127,9 +130,52 @@ namespace LED
     //ROS_INFO("%d : %d %d %d",id_,color_vector_[id_-1][0],color_vector_[id_-1][1],color_vector_[id_-1][2]);
     for(int i=0; i<Leds_.size(); i++)
     {
-  
-      Leds_[i].SetPwmDutyCycle(int(color_vector_[id_-1][i]));
+      if(change_color){
+        rgb rgb_ = hsv2rgb(target_color_vector_hsv[current]);
+        float target_color_vector[3] = {rgb_.b * 1000, rgb_.r * 1000, rgb_.g * 1000};
+        Leds_[i].SetPwmDutyCycle(target_color_vector[i]);
+      }
+      
+      else{
+        Leds_[i].SetPwmDutyCycle(int(color_vector_[id_-1][i]));
+      }
     }
+    if(current == target_color_vector_hsv.size() - 1){
+      current = 0;
+      change_color = false;
+    }
+    current++;
+  }
+
+  void LedManager::SetTargetColor(float cycle, int target_id, int current_id)
+  {
+    rgb target_rgb;
+    target_rgb.b = double(color_vector_[target_id-1][0]) / 1000;
+    target_rgb.r = double(color_vector_[target_id-1][1]) / 1000;
+    target_rgb.g = double(color_vector_[target_id-1][2]) / 1000;
+    hsv target_hsv = rgb2hsv(target_rgb);
+
+    rgb current_rgb;
+    current_rgb.b = double(color_vector_[current_id-1][0]) / 1000;
+    current_rgb.r = double(color_vector_[current_id-1][1]) / 1000;
+    current_rgb.g = double(color_vector_[current_id-1][2]) / 1000;
+    hsv current_hsv = rgb2hsv(current_rgb);
+
+    double gradation_cycle = gradation_time / cycle;
+    double error[3] = {(target_hsv.h - current_hsv.h) / gradation_cycle, 
+                       (target_hsv.s - current_hsv.s) / gradation_cycle, 
+                       (target_hsv.v - current_hsv.v) / gradation_cycle};
+
+    target_color_vector_hsv.clear();
+    for(int i = 0; i < 0.8 / cycle; i++){
+      hsv add_error;
+      add_error.h = current_hsv.h + error[0] * i;
+      add_error.s = current_hsv.s + error[1] * i;
+      add_error.v = current_hsv.v + error[2] * i;
+      target_color_vector_hsv.push_back(add_error);
+    }
+    change_color = true;
+    current = 0;
   }
   
   void LedManager::StopLed()
@@ -140,4 +186,111 @@ namespace LED
     }
   }
 
+  hsv LedManager::rgb2hsv(rgb in)
+  {
+    hsv        out;
+    double      min, max, delta;
+   
+    min = in.r < in.g ? in.r : in.g;
+    min = min  < in.b ? min  : in.b;
+   
+    max = in.r > in.g ? in.r : in.g;
+    max = max  > in.b ? max  : in.b;
+   
+    out.v = max;                                // v
+    delta = max - min;
+    if( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
+        out.s = (delta / max);                  // s
+    } else {
+        // if max is 0, then r = g = b = 0
+        // s = 0, v is undefined
+        out.s = 0.0;
+        out.h = 0.0;                            // its now undefined
+        return out;
+    }
+    if( in.r >= max )                           // > is bogus, just keeps compilor happy
+        if(delta == 0){
+            out.h = 0.0;
+        }
+        else{
+            out.h = ( in.g - in.b ) / delta;        // between yellow & magenta
+        }
+    else
+        if( in.g >= max )
+            out.h = 2.0 + ( in.b - in.r ) / delta;  // between cyan & yellow
+        else
+            out.h = 4.0 + ( in.r - in.g ) / delta;  // between magenta & cyan
+   
+    out.h *= 60.0;                              // degrees
+   
+    if( out.h < 0.0 )
+        out.h += 360.0;
+   
+    return out;
+  }
+
+  rgb LedManager::hsv2rgb(hsv in)
+  {
+    double hh, p, q, t, ff;
+    long i;
+    rgb out;
+    
+    if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
+        out.r = in.v;
+        out.g = in.v;
+        out.b = in.v;
+        return out;
+    }
+    hh = in.h;
+    if(hh >= 360.0) hh = 0.0;
+    hh /= 60.0;
+    i = (long)hh;
+    ff = hh - i;
+    p = in.v * (1.0 - in.s);
+    q = in.v * (1.0 - (in.s * ff));
+    t = in.v * (1.0 - (in.s * (1.0 - ff)));
+    
+    switch(i) {
+        case 0:
+            out.r = in.v;
+            out.g = t;
+            out.b = p;
+            break;
+        case 1:
+            out.r = q;
+            out.g = in.v;
+            out.b = p;
+            break;
+        case 2:
+            out.r = p;
+            out.g = in.v;
+            out.b = t;
+            break;
+            
+        case 3:
+            out.r = p;
+            out.g = q;
+            out.b = in.v;
+            break;
+        case 4:
+            out.r = t;
+            out.g = p;
+            out.b = in.v;
+            break;
+        case 5:
+        default:
+            out.r = in.v;
+            out.g = p;
+            out.b = q;
+            break;
+    }
+    return out;    
+  }
+
+  bool LedManager::IDCheck(int id)
+  {
+    if(id > color_vector_.size())
+      return false;
+    return true;
+  }
 };
