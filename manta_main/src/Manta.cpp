@@ -6,7 +6,7 @@ Manta::Manta()
 	pose_num = 8;
 	mp3_num = 5;
 	count = 0;
-	count_time = 100;
+	count_time = 250;
 }
 
 Manta::~Manta()
@@ -85,7 +85,7 @@ void Manta::PubLed(std_msgs::Int16 led)
 void Manta::PubMp3()
 {
 	count++;
-	if(count == count_time)
+	if(count > count_time)
 	{	
 		std_msgs::Int16 data;
 		int ran = rand() % mp3_num;

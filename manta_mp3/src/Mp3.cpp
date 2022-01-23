@@ -4,9 +4,9 @@
 
 Mp3::Mp3()
 {
-	mp3_count_ = 1;
+	mp3_count_ = 5;
 	mp3_playing_ = false;
-	random_play_time_ = 10;
+	random_play_time_ = 30;
 }
 
 Mp3::~Mp3()
