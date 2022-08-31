@@ -19,10 +19,7 @@
 - led strip
 
 ### 3. 영상
-<p align="center">
+<p>
 <img src = https://user-images.githubusercontent.com/48857469/187665052-dc409f3c-233f-4273-b940-fd930b202bc9.gif>
-</p>
-
-<p align="center">
-<img src = https://user-images.githubusercontent.com/48857469/187665052-dc409f3c-233f-4273-b940-fd930b202bc9.gif>
+<img src = https://user-images.githubusercontent.com/48857469/187665519-fe2777ca-25e8-48c9-9920-70acd7022a4b.gif>
 </p>
